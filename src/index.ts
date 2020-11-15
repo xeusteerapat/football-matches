@@ -1,36 +1,24 @@
-import fs from 'fs';
+import { CSVFileReader } from './CSVFileReader';
 
-(async function () {
-  const fsPromises = fs.promises;
-  try {
-    const matches = await (
-      await fsPromises.readFile('football.csv', {
-        encoding: 'utf-8',
-      })
-    )
-      .split('\n')
-      .map((row: string): string[] => {
-        return row.split(',');
-      });
+const reader = new CSVFileReader('football.csv');
+reader.read();
 
-    enum MatchResult {
-      HomeWin = 'H',
-      AwayWin = 'A',
-      Draw = 'D',
-    }
+const matches = reader.data;
 
-    let arsenalWins = 0;
+enum MatchResult {
+  HomeWin = 'H',
+  AwayWin = 'A',
+  Draw = 'D',
+}
 
-    for (let match of matches) {
-      if (match[1] === 'Arsenal' && match[5] === MatchResult.HomeWin) {
-        arsenalWins++;
-      } else if (match[2] === 'Arsenal' && match[5] === MatchResult.AwayWin) {
-        arsenalWins++;
-      }
-    }
+let arsenalWins = 0;
 
-    console.log(`Arsenal wins ${arsenalWins} games`);
-  } catch (error) {
-    console.log(error);
+for (let match of matches) {
+  if (match[1] === 'Arsenal' && match[5] === MatchResult.HomeWin) {
+    arsenalWins++;
+  } else if (match[2] === 'Arsenal' && match[5] === MatchResult.AwayWin) {
+    arsenalWins++;
   }
-})();
+}
+
+console.log(`Arsenal wins ${arsenalWins} games`);
