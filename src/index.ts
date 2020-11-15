@@ -1,1 +1,3 @@
-console.log('Test');
+import fs from 'fs';
+
+console.log(fs);
