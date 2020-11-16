@@ -8,12 +8,14 @@ export class CSVFileReader {
   data: MatchData[] = [];
 
   constructor(public filename: string) {}
+  fsPromises = fs.promises;
 
-  read(): void {
-    this.data = fs
-      .readFileSync(this.filename, {
+  async read(): Promise<void> {
+    this.data = (
+      await this.fsPromises.readFile(this.filename, {
         encoding: 'utf-8',
       })
+    )
       .split('\n')
       .map((row: string): string[] => {
         return row.split(',');
