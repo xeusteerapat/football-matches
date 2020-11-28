@@ -1,18 +1,8 @@
-import { HtmlReport } from './reportsTargets/HtmlReport';
-import { Summary } from './Summary';
-import { WinAnalysis } from './analyzers/WinAnalysis';
-import { ConsoleReport } from './reportsTargets/ConsoleReport';
-import { CSVFileReader } from './CSVFileReader';
 import { MatchReader } from './MatchReader';
+import { Summary } from './Summary';
 
-// create an object that satisfies the 'DataReader' interface
-const csvFileReader = new CSVFileReader('football.csv');
-
-// Create an instance of MatchReader and pass in something satisfying
-// the DataReader interface
-const matchReader = new MatchReader(csvFileReader);
-matchReader.load();
-
+const matchReader = MatchReader.fromCSV('football.csv');
 const summary = Summary.winAnalysisWithHtmlReport('Arsenal');
 
+matchReader.load();
 summary.buildAndPrintReport(matchReader.matches);
