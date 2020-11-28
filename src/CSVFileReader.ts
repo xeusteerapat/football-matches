@@ -1,11 +1,9 @@
 import fs from 'fs';
 
-export abstract class CSVFileReader<T> {
-  data: T[] = [];
+export class CSVFileReader {
+  data: string[][] = [];
 
   constructor(public filename: string) {}
-  abstract mapRow(row: string[]): T;
-
   fsPromises = fs.promises;
 
   async read(): Promise<void> {
@@ -17,7 +15,6 @@ export abstract class CSVFileReader<T> {
       .split('\n')
       .map((row: string): string[] => {
         return row.split(',');
-      })
-      .map(this.mapRow);
+      });
   }
 }
