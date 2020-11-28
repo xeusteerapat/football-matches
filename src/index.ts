@@ -13,16 +13,4 @@ import { MatchResult } from './MatchResult';
 
   const matches = matchReader.matches;
   console.log(matches);
-
-  let arsenalWins = 0;
-
-  for (let match of matches) {
-    if (match[1] === 'Arsenal' && match[5] === MatchResult.HomeWin) {
-      arsenalWins++;
-    } else if (match[2] === 'Arsenal' && match[5] === MatchResult.AwayWin) {
-      arsenalWins++;
-    }
-  }
-
-  console.log(`Arsenal wins ${arsenalWins} games`);
 })();
